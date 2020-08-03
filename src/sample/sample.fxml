@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="500.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" AnchorPane.topAnchor="0.0">
+            <fill>
+                <LinearGradient endX="0.7761904761904762" endY="0.6428571428571428" startX="1.0" startY="0.8523809523809524">
+                    <stops>
+                        <Stop color="#333540" />
+                        <Stop color="#223140" offset="1.0" />
+                    </stops>
+                </LinearGradient>
+            </fill>
+        </Rectangle>
+        <VBox fx:id="MainMenuVBox" alignment="CENTER" layoutX="190.0" layoutY="195.0" prefHeight="129.0" prefWidth="220.0" spacing="16.0">
+            <children>
+                <Button fx:id="StartGameButton" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="3.0" mnemonicParsing="false" opacity="0.79" prefHeight="38.0" prefWidth="220.0" style="-fx-background-color: #afafaf;" text="Играть" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+                    <font>
+                        <Font name="GOST Type BU" size="20.0" />
+                    </font>
+                </Button>
+                <Button fx:id="SettingsGameButton" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="3.0" mnemonicParsing="false" opacity="0.79" prefHeight="38.0" prefWidth="220.0" style="-fx-background-color: #afafaf;" text="Настройки" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+                    <font>
+                        <Font name="GOST Type BU" size="20.0" />
+                    </font>
+                </Button>
+                <Button fx:id="ExitGameButton" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="3.0" mnemonicParsing="false" opacity="0.79" prefHeight="38.0" prefWidth="220.0" style="-fx-background-color: #afafaf;" text="Выход" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+                    <font>
+                        <Font name="GOST Type BU" size="20.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+        <VBox fx:id="SettingsMenuVbox" alignment="CENTER" layoutX="190.0" layoutY="14.0" prefHeight="22.0" prefWidth="220.0" spacing="16.0">
+            <children>
+                <Button fx:id="MenuSettingsLangs" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="3.0" mnemonicParsing="false" opacity="0.79" prefHeight="38.0" prefWidth="220.0" style="-fx-background-color: #afafaf;" text="Язык" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+                    <font>
+                        <Font name="GOST Type BU" size="20.0" />
+                    </font>
+                </Button>
+                <Button fx:id="MenuSettingsExit" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="3.0" mnemonicParsing="false" opacity="0.79" prefHeight="38.0" prefWidth="220.0" style="-fx-background-color: #afafaf;" text="Закрыть" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS">
+                    <font>
+                        <Font name="GOST Type BU" size="20.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+        <VBox fx:id="SettingsLangsVBox" alignment="CENTER" layoutX="400.0" layoutY="176.0" prefHeight="145.0" prefWidth="119.0" spacing="16.0">
+            <children>
+                <ToggleButton fx:id="LangsId0" ellipsisString="12" lineSpacing="5.0" mnemonicParsing="false" opacity="0.79" prefHeight="38.0" prefWidth="120.0" selected="true" style="-fx-background-color: #afafaf;" text="Русский" textAlignment="JUSTIFY" textFill="WHITE">
+                    <font>
+                        <Font name="GOST Type BU" size="20.0" />
+                    </font>
+                    <toggleGroup>
+                        <ToggleGroup fx:id="langs" />
+                    </toggleGroup>
+                </ToggleButton>
+                <ToggleButton fx:id="LangsId1" ellipsisString="" mnemonicParsing="false" opacity="0.79" prefHeight="38.0" prefWidth="118.0" selected="true" style="-fx-background-color: #afafaf;" text="English" textAlignment="JUSTIFY" textFill="WHITE" toggleGroup="$langs">
+                    <font>
+                        <Font name="GOST Type BU" size="20.0" />
+                    </font>
+                </ToggleButton>
+                <Button fx:id="ChangeLangsOkButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #afafaf;" text="Готово" textFill="WHITE">
+                    <font>
+                        <Font name="GOST Type BU" size="19.0" />
+                    </font></Button>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
