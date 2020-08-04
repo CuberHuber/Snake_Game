@@ -18,6 +18,8 @@ public class SnakeGame {
 
 
     public static GraphicsContext GameGraphCont;
+    private static int speed;
+    private static int score;
 
     // Анимация
     protected static long lasttick = 40;
@@ -25,6 +27,9 @@ public class SnakeGame {
 
 
     public static void start(){
+
+        speed = Constants.GameMode.Difficulty.speed[Constants.GameMode.Difficulty.indexDifficulty];
+        score = -1;
         newfood(); // Функция выбора положения еды на поле
 
         VBox root = new VBox();
@@ -47,7 +52,7 @@ public class SnakeGame {
                     tick(gc);
                     return;
                 }
-                if (now - lasttick > 1000000000 / Constants.Field.speed) {
+                if (now - lasttick > 1000000000 / speed) {
                     lasttick = now;
                     tick(gc);
                 }
@@ -72,6 +77,7 @@ public class SnakeGame {
             }
             if (key.getCode() == KeyCode.ENTER){
                 asd.stop();
+                //Scenes.stage.getScene().setRoot(Scenes.rootMenu);
             }
             if (key.getCode() == KeyCode.ESCAPE){
                 asd.start();
@@ -100,7 +106,9 @@ public class SnakeGame {
                 }
             }
             Constants.Field.food_color = rand.nextInt(5);
-            Constants.Field.speed++;
+            if (Constants.GameMode.changeSpeed)
+                speed++;
+            score++;
             break;
 
         }
@@ -151,25 +159,73 @@ public class SnakeGame {
             Constants.Field.snake.get(i).y = Constants.Field.snake.get(i - 1).y;
         }
 
-        // Передвижение головы змеи
-        switch (Constants.Field.direction){
-            case up:
-                Constants.Field.snake.get(0).y--;
 
-                break;
-            case down:
-                Constants.Field.snake.get(0).y++;
 
-                break;
-            case left:
-                Constants.Field.snake.get(0).x--;
+        //// Режим со стенами           ///  НИХУЯ НЕ РАБОТАЕТ
+        
+        if (Constants.GameMode.isWalls) {
+            // Передвижение головы змеи
 
-                break;
-            case right:
-                Constants.Field.snake.get(0).x++;
-
-                break;
+                        /// Не работает             Й!!!!!!!!!!!!!!!!!!!!!   НАЙТИ ОШИБКУ
+            switch (Constants.Field.direction) {
+                case up:
+                    Constants.Field.snake.get(0).y--;
+                    if (Constants.Field.snake.get(0).y < 0){
+                        Constants.Field.gameOver = true;
+                    }
+                    break;
+                case down:
+                    Constants.Field.snake.get(0).y++;
+                    if (Constants.Field.snake.get(0).y > (Constants.Field.corner_size -1)){
+                        Constants.Field.gameOver = true;
+                    }
+                    break;
+                case left:
+                    Constants.Field.snake.get(0).x--;
+                    if (Constants.Field.snake.get(0).x < 0){
+                        Constants.Field.gameOver = true;
+                    }
+                    break;
+                case right:
+                    Constants.Field.snake.get(0).x++;
+                    if (Constants.Field.snake.get(0).x > (Constants.Field.corner_size -1)){
+                        Constants.Field.gameOver = true;
+                    }
+                    break;
+            }
         }
+        else{
+            // Передвижение головы змеи
+            switch (Constants.Field.direction) {
+                case up:
+                    Constants.Field.snake.get(0).y--;
+                    break;
+                case down:
+                    Constants.Field.snake.get(0).y++;
+                    break;
+                case left:
+                    Constants.Field.snake.get(0).x--;
+                    break;
+                case right:
+                    Constants.Field.snake.get(0).x++;
+                    break;
+            }
+            // check collision
+            // Если змея доходит до края, то появляется в другом конце карты
+            if (Constants.Field.snake.get(0).y < 0){
+                Constants.Field.snake.get(0).y = Constants.Field.corner_size-1;
+            }
+            if (Constants.Field.snake.get(0).y > Constants.Field.corner_size -1){
+                Constants.Field.snake.get(0).y = 0;
+            }
+            if (Constants.Field.snake.get(0).x < 0){
+                Constants.Field.snake.get(0).x = Constants.Field.corner_size-1;
+            }
+            if (Constants.Field.snake.get(0).x > Constants.Field.corner_size -1){
+                Constants.Field.snake.get(0).x = 0;
+            }
+        }
+
 
 
 
@@ -198,28 +254,14 @@ public class SnakeGame {
         // score
         gc.setFill(Color.CHOCOLATE);
         gc.setFont(new Font("", 30));
-        gc.fillText(Localization.Game.Score[Localization.IndexLangs]+ ": " + (Constants.Field.speed - 6), Constants.Field.START_WIDTH+10, 30);
+        gc.fillText(Localization.Game.Score[Localization.IndexLangs]+ ": " + score, Constants.Field.START_WIDTH+10, 30);
 
         // eat
         gc.setFill(Color.PURPLE);
         gc.fillOval(Constants.Field.foodX * Constants.Field.width, Constants.Field.foodY * Constants.Field.height + Constants.Field.START_HEIGHT, Constants.Field.width, Constants.Field.height);
 
-        // Snake
 
-        // check collision
-        // Если змея доходит до края, то появляется в другом конце карты
-        if (Constants.Field.snake.get(0).y < 0){
-            Constants.Field.snake.get(0).y = Constants.Field.corner_size-1;
-        }
-        if (Constants.Field.snake.get(0).y > Constants.Field.corner_size -1){
-            Constants.Field.snake.get(0).y = 0;
-        }
-        if (Constants.Field.snake.get(0).x < 0){
-            Constants.Field.snake.get(0).x = Constants.Field.corner_size-1;
-        }
-        if (Constants.Field.snake.get(0).x > Constants.Field.corner_size -1){
-            Constants.Field.snake.get(0).x = 0;
-        }
+        // Snake
         for (Constants.Corner c: Constants.Field.snake){
             gc.setFill(Color.LIGHTGREEN);
             gc.fillRect(c.x * Constants.Field.width, c.y * Constants.Field.height + Constants.Field.START_HEIGHT, Constants.Field.width - 1, Constants.Field.height - 1);

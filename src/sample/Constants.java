@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Constants {
+
+    // Версия игры
+    public static final String PROGRAM_VERSION = "0.5.0 beta";    //         !!!  После каждого значительного именения, повышать версию
+
+
+
     // Размеры окна
     public static final int WIDTH = 600;
     public static final int HEIGHT = 500;
@@ -17,6 +23,9 @@ public class Constants {
         public static final int Menu_LayoutX = 190;
         public static final int Menu_LayoutY = 195;
         public static final int Menu_Pref_Width = 220;
+        public static final int Menu_Pref_Height = 38;
+        public static final int Menu_Pref_Spacing = 16;
+
 
         public static void setAnimationButton(Button but){
             but.setOnMouseEntered(event -> {
@@ -30,6 +39,30 @@ public class Constants {
             });
         }
     }
+
+        //  Режимы ИГРЫ
+    public static class GameMode {
+
+        public static class Difficulty{
+            private static int easySpeed = 5;
+            private static int middleSpeed = 8;
+            private static int highSpeed = 11;
+            private static int impossibleSpeed = 16;
+
+            public static int[] speed = {easySpeed, middleSpeed, highSpeed, impossibleSpeed}; // Массив уровней / скоростей
+
+            public static int indexDifficulty = 1; // Уровень средний по-умолчанию
+        }
+
+        // Изменени скорости после каждой съеденной еды
+            // По-умолчанию есть
+        public static boolean changeSpeed = true;
+
+        // Наличие стен.   или телепортов по краям карты
+            // По-умолчанию стен нет
+        public static boolean isWalls = true;
+    }
+
 
     public static class Field {
 
@@ -46,7 +79,7 @@ public class Constants {
         public static int corner_size = 25; // сторона квадрата поля. количество клеток
 
         // Допилить выбор начальной скорости. аля уровень сложности       !!!!
-        public static int speed = 5; // скорость змейки. Таймер
+        //public static int speed = GameMode.Complexity.speed[]; // скорость змейки. Таймер
 
         //
 
@@ -65,7 +98,10 @@ public class Constants {
         public static Random rand = new Random(); // Рандом
 
 
+        // Условие конца игры
         public static boolean gameOver = false; // Показатель конца игры
+
+
     }
     // Объединение
     public enum Dir {
