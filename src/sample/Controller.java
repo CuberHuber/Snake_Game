@@ -11,9 +11,6 @@ import javafx.scene.text.Text;
 
 public class Controller {
 
-    public static int x = 0;
-    public static int y = 0;
-
     @FXML
     private VBox MainMenuVBox;
 
@@ -87,6 +84,11 @@ public class Controller {
     private CheckBox ModeIsAccelButton;
 
 
+
+    private static boolean isOnLanguages = true;
+    private static boolean isOnDifficulty = true;
+    private static boolean isOnMode = true;
+
     @FXML
     public void initialize(){
 
@@ -137,49 +139,72 @@ public class Controller {
 
 
 
+
             //// НАСТРОЙКИ
         /// Кнопка Смены Языка
         Constants.Menu.setAnimationButton(MenuSettingsLangs); // Настройка анимации
         MenuSettingsLangs.setOnMousePressed(event ->{
-            // настройка подменюшек
-            setLanguage(LangsId0, LangsId1, Localization.IndexLangs);
             // Начальная позиция
             SettingsLangsVBox.setLayoutX(Constants.Menu.Menu_LayoutX+Constants.Menu.Menu_Pref_Width + 5);
             SettingsLangsVBox.setLayoutY(Constants.Menu.Menu_LayoutY);
             // отображение подменю
-            SettingsLangsVBox.setVisible(true);
-            // Скрытие подменюшек
-            SettingsDifficultyVBox.setVisible(false);
-            SettingsModePane.setVisible(false);
+            if (isOnLanguages) {
+                // настройка подменюшек
+                setLanguage(LangsId0, LangsId1, Localization.IndexLangs);
+                SettingsLangsVBox.setVisible(true);
+                SettingsDifficultyVBox.setVisible(false);
+                SettingsModePane.setVisible(false);
+                isOnLanguages = false;
+            } else{ // Скрытие подменюшек
+                SettingsLangsVBox.setVisible(false);
+                SettingsDifficultyVBox.setVisible(false);
+                SettingsModePane.setVisible(false);
+                isOnLanguages = true;
+            }
         });
         /// Кнопка выбора сложности игры
         Constants.Menu.setAnimationButton(MenuSettingsDifficulty); // Настройка анимации
         MenuSettingsDifficulty.setOnMousePressed(event ->{
-            // настройка подменюшек
-            setDifficulty(DifficultyEasy, DifficultyNormal, DifficultyHard, DifficultyImpossible, Constants.GameMode.Difficulty.indexDifficulty);
             // Начальная позиция
             SettingsDifficultyVBox.setLayoutX(Constants.Menu.Menu_LayoutX+Constants.Menu.Menu_Pref_Width + 5);
             SettingsDifficultyVBox.setLayoutY(Constants.Menu.Menu_LayoutY);
             // отображение подменю
-            SettingsDifficultyVBox.setVisible(true);
-            // Скрытие подменюшек
-            SettingsLangsVBox.setVisible(false);
-            SettingsModePane.setVisible(false);
+            if (isOnDifficulty) {
+                // настройка подменюшек
+                setDifficulty(DifficultyEasy, DifficultyNormal, DifficultyHard, DifficultyImpossible, Constants.GameMode.Difficulty.indexDifficulty);
+                SettingsDifficultyVBox.setVisible(true);
+                SettingsLangsVBox.setVisible(false);
+                SettingsModePane.setVisible(false);
+                isOnDifficulty = false;
+            }else { // Скрытие подменюшек
+                SettingsDifficultyVBox.setVisible(false);
+                SettingsLangsVBox.setVisible(false);
+                SettingsModePane.setVisible(false);
+                isOnDifficulty = true;
+            }
         });
         /// Кнопка выбора режима игры
         Constants.Menu.setAnimationButton(MenuSettingsMode); // Настройка анимации
         MenuSettingsMode.setOnMousePressed(event ->{
-            // настройка подменюшек
-            setMode(ModeIsWallsButton, ModeIsAccelButton);
             // Начальная позиция
             SettingsModePane.setLayoutX(Constants.Menu.Menu_LayoutX+Constants.Menu.Menu_Pref_Width + 5);
             SettingsModePane.setLayoutY(Constants.Menu.Menu_LayoutY);
             // отображение подменю
-            SettingsModePane.setVisible(true);
-            // Скрытие подменюшек
-            SettingsLangsVBox.setVisible(false);
-            SettingsDifficultyVBox.setVisible(false);
+            if (isOnMode) {
+                // настройка подменюшек
+                setMode(ModeIsWallsButton, ModeIsAccelButton);
+                SettingsModePane.setVisible(true);
+                SettingsLangsVBox.setVisible(false);
+                SettingsDifficultyVBox.setVisible(false);
+                isOnMode = false;
+            }else{ // Скрытие подменюшек
+                SettingsModePane.setVisible(false);
+                SettingsLangsVBox.setVisible(false);
+                SettingsDifficultyVBox.setVisible(false);
+                isOnMode = true;
+            }
         });
+
 
         /// Кнопка выхода из настроек
         Constants.Menu.setAnimationButton(MenuSettingsExit);
