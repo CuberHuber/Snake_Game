@@ -1,16 +1,16 @@
 package sample;
 
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Scenes {
 
     public static Stage stage;
-    public static Parent rootMenu;
+    public static Scene sceneMenu;
 
-    public static void setScenes(Stage stage, Parent rootMenu){
+    public static void setScenes(Stage stage, Scene rootMenu){
         Scenes.stage = stage;
-        Scenes.rootMenu = rootMenu;
+        Scenes.sceneMenu = rootMenu;
     }
-
 }

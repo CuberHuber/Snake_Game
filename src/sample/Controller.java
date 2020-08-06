@@ -148,19 +148,23 @@ public class Controller {
             SettingsLangsVBox.setLayoutX(Constants.Menu.Menu_LayoutX+Constants.Menu.Menu_Pref_Width + 5);
             SettingsLangsVBox.setLayoutY(Constants.Menu.Menu_LayoutY);
             // отображение подменю
-            if (isOnLanguages) {
-                // настройка подменюшек
-                setLanguage(LangsId0, LangsId1, Localization.IndexLangs);
-                SettingsLangsVBox.setVisible(true);
-                SettingsDifficultyVBox.setVisible(false);
-                SettingsModePane.setVisible(false);
-                isOnLanguages = false;
-            } else{ // Скрытие подменюшек
-                SettingsLangsVBox.setVisible(false);
-                SettingsDifficultyVBox.setVisible(false);
-                SettingsModePane.setVisible(false);
-                isOnLanguages = true;
-            }
+            setLanguage(LangsId0, LangsId1, Localization.IndexLangs);
+            SettingsLangsVBox.setVisible(true);
+            SettingsDifficultyVBox.setVisible(false);
+            SettingsModePane.setVisible(false);
+//            if (isOnLanguages) {
+//                // настройка подменюшек
+//                setLanguage(LangsId0, LangsId1, Localization.IndexLangs);
+//                SettingsLangsVBox.setVisible(true);
+//                SettingsDifficultyVBox.setVisible(false);
+//                SettingsModePane.setVisible(false);
+//                isOnLanguages = false;
+//            } else{ // Скрытие подменюшек
+//                SettingsLangsVBox.setVisible(false);
+//                SettingsDifficultyVBox.setVisible(false);
+//                SettingsModePane.setVisible(false);
+//                isOnLanguages = true;
+//            }
         });
         /// Кнопка выбора сложности игры
         Constants.Menu.setAnimationButton(MenuSettingsDifficulty); // Настройка анимации
@@ -169,19 +173,23 @@ public class Controller {
             SettingsDifficultyVBox.setLayoutX(Constants.Menu.Menu_LayoutX+Constants.Menu.Menu_Pref_Width + 5);
             SettingsDifficultyVBox.setLayoutY(Constants.Menu.Menu_LayoutY);
             // отображение подменю
-            if (isOnDifficulty) {
-                // настройка подменюшек
-                setDifficulty(DifficultyEasy, DifficultyNormal, DifficultyHard, DifficultyImpossible, Constants.GameMode.Difficulty.indexDifficulty);
-                SettingsDifficultyVBox.setVisible(true);
-                SettingsLangsVBox.setVisible(false);
-                SettingsModePane.setVisible(false);
-                isOnDifficulty = false;
-            }else { // Скрытие подменюшек
-                SettingsDifficultyVBox.setVisible(false);
-                SettingsLangsVBox.setVisible(false);
-                SettingsModePane.setVisible(false);
-                isOnDifficulty = true;
-            }
+            setDifficulty(DifficultyEasy, DifficultyNormal, DifficultyHard, DifficultyImpossible, Constants.GameMode.Difficulty.indexDifficulty);
+            SettingsDifficultyVBox.setVisible(true);
+            SettingsLangsVBox.setVisible(false);
+            SettingsModePane.setVisible(false);
+//            if (isOnDifficulty) {
+//                // настройка подменюшек
+//                setDifficulty(DifficultyEasy, DifficultyNormal, DifficultyHard, DifficultyImpossible, Constants.GameMode.Difficulty.indexDifficulty);
+//                SettingsDifficultyVBox.setVisible(true);
+//                SettingsLangsVBox.setVisible(false);
+//                SettingsModePane.setVisible(false);
+//                isOnDifficulty = false;
+//            }else { // Скрытие подменюшек
+//                SettingsDifficultyVBox.setVisible(false);
+//                SettingsLangsVBox.setVisible(false);
+//                SettingsModePane.setVisible(false);
+//                isOnDifficulty = true;
+//            }
         });
         /// Кнопка выбора режима игры
         Constants.Menu.setAnimationButton(MenuSettingsMode); // Настройка анимации
@@ -190,19 +198,23 @@ public class Controller {
             SettingsModePane.setLayoutX(Constants.Menu.Menu_LayoutX+Constants.Menu.Menu_Pref_Width + 5);
             SettingsModePane.setLayoutY(Constants.Menu.Menu_LayoutY);
             // отображение подменю
-            if (isOnMode) {
-                // настройка подменюшек
-                setMode(ModeIsWallsButton, ModeIsAccelButton);
-                SettingsModePane.setVisible(true);
-                SettingsLangsVBox.setVisible(false);
-                SettingsDifficultyVBox.setVisible(false);
-                isOnMode = false;
-            }else{ // Скрытие подменюшек
-                SettingsModePane.setVisible(false);
-                SettingsLangsVBox.setVisible(false);
-                SettingsDifficultyVBox.setVisible(false);
-                isOnMode = true;
-            }
+            setMode(ModeIsWallsButton, ModeIsAccelButton);
+            SettingsModePane.setVisible(true);
+            SettingsLangsVBox.setVisible(false);
+            SettingsDifficultyVBox.setVisible(false);
+//            if (isOnMode) {
+//                // настройка подменюшек
+//                setMode(ModeIsWallsButton, ModeIsAccelButton);
+//                SettingsModePane.setVisible(true);
+//                SettingsLangsVBox.setVisible(false);
+//                SettingsDifficultyVBox.setVisible(false);
+//                isOnMode = false;
+//            }else{ // Скрытие подменюшек
+//                SettingsModePane.setVisible(false);
+//                SettingsLangsVBox.setVisible(false);
+//                SettingsDifficultyVBox.setVisible(false);
+//                isOnMode = true;
+//            }
         });
 
 

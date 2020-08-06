@@ -21,8 +21,10 @@ public class Main extends Application {
 
 
         Parent root = FXMLLoader.load(getClass().getResource("/sample/sample.fxml"));
-        primaryStage.setScene(new Scene(root, Constants.WIDTH, Constants.HEIGHT));
-        Scenes.setScenes(primaryStage, root);
+
+        Scene scene = new Scene(root, Constants.WIDTH, Constants.HEIGHT);
+        primaryStage.setScene(scene);
+        Scenes.setScenes(primaryStage, scene);
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {

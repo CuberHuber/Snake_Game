@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,6 +11,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 
 import static sample.Constants.Field.rand;
@@ -121,15 +132,21 @@ public class SnakeGame {
             }
             if (key.getCode() == KeyCode.ENTER){
                 asd.stop();
+                Scenes.stage.setScene(Scenes.sceneMenu);
+                //GameMenu.setScene();
+                //Scenes.stage.getScene().setRoot(GameMenu.pauseMenu);
             }
             if (key.getCode() == KeyCode.ESCAPE){
                 asd.start();
             }
         });
         // Add start snake parts
+        Constants.Field.snake.clear();
         Constants.Field.snake.add(new Constants.Corner(Constants.Field.corner_size /2, Constants.Field.corner_size /2));
         Constants.Field.snake.add(new Constants.Corner(Constants.Field.corner_size / 2 - 1, Constants.Field.corner_size /2));
         Constants.Field.snake.add(new Constants.Corner(Constants.Field.corner_size / 2 - 2, Constants.Field.corner_size /2));
+
+        Constants.Field.direction = Constants.Dir.right;
 
         // Create scene
         Scenes.stage.setScene(scene1);
