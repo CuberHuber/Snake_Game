@@ -2,6 +2,7 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
@@ -65,6 +66,9 @@ public class Controller {
     private ToggleButton DifficultyEasy;
 
     @FXML
+    private ToggleGroup Difficulty;
+
+    @FXML
     private ToggleButton DifficultyNormal;
 
     @FXML
@@ -74,7 +78,13 @@ public class Controller {
     private ToggleButton DifficultyImpossible;
 
     @FXML
-    private ToggleGroup Difficulty;
+    private Pane SettingsModePane;
+
+    @FXML
+    private CheckBox ModeIsWallsButton;
+
+    @FXML
+    private CheckBox ModeIsAccelButton;
 
 
     @FXML
@@ -83,11 +93,12 @@ public class Controller {
         // Локализация
         setTextLanguages();
 
-
         // Версия игры
         GameVersionText.setText(Localization.GameVersion[Localization.IndexLangs] + " " + Constants.PROGRAM_VERSION);
 
-        // Параметры VBoxs
+
+
+            //// ПАРАМЕТРЫ КОНТЕЙНЕРОВ ПОДМЕНЮ
         // Основное меню
         MainMenuVBox.setLayoutX(Constants.Menu.Menu_LayoutX);
         MainMenuVBox.setLayoutY(Constants.Menu.Menu_LayoutY);
@@ -96,17 +107,19 @@ public class Controller {
         SettingsMenuVbox.setLayoutX(Constants.Menu.Menu_LayoutX);
         SettingsMenuVbox.setLayoutY(Constants.Menu.Menu_LayoutY);
         SettingsMenuVbox.setVisible(false);
+        SettingsLangsVBox.setVisible(false);
         SettingsDifficultyVBox.setVisible(false);
+        SettingsModePane.setVisible(false);
 
 
-        //// Главное МЕНЮ
+
+            //// ГЛАВНОЕ МЕНЮ
         // Кнопка Играть в главном меню
         StartGameButton.setText(Localization.Menu.Main.Start[Localization.IndexLangs]);
         Constants.Menu.setAnimationButton(StartGameButton);
         StartGameButton.setOnMousePressed(event->{
             SnakeGame.start();
         });
-
         // Кнопка настроек
         SettingsGameButton.setText(Localization.Menu.Main.Settings[Localization.IndexLangs]);
         Constants.Menu.setAnimationButton(SettingsGameButton);
@@ -114,8 +127,6 @@ public class Controller {
             SettingsMenuVbox.setVisible(true);
             MainMenuVBox.setVisible(false);
         });
-
-
         // Кнопка выхода
         ExitGameButton.setText(Localization.Menu.Main.Exit[Localization.IndexLangs]);
         Constants.Menu.setAnimationButton(ExitGameButton);
@@ -124,101 +135,110 @@ public class Controller {
         });
 
 
-        //// НАСТРОЙКИ
-        // Кнопка выхода из настроек
-        Constants.Menu.setAnimationButton(MenuSettingsExit);
-        MenuSettingsExit.setOnMousePressed(event ->{
-            SettingsMenuVbox.setVisible(false);
-            MainMenuVBox.setVisible(true);
-            SettingsLangsVBox.setVisible(false);
-            SettingsDifficultyVBox.setVisible(false);
-        });
 
 
-            //// ВЫБОР СЛОЖНОСТИ
-        SettingsDifficultyVBox.setVisible(false);
-        /// Кнопка выбора сложности игры
-        Constants.Menu.setAnimationButton(MenuSettingsDifficulty); // Настройка анимации
-
-        MenuSettingsDifficulty.setOnMousePressed(event ->{
-            SettingsDifficultyVBox.setVisible(true);
-            SettingsLangsVBox.setVisible(false);
-            SettingsDifficultyVBox.setLayoutX(Constants.Menu.Menu_LayoutX+Constants.Menu.Menu_Pref_Width + 5);
-            SettingsDifficultyVBox.setLayoutY(Constants.Menu.Menu_LayoutY);
-            //SettingsMenuVbox.setVisible(true);
-        });
-
-
-            // Группа
-
-            // Выход из выбора языка
-//        Constants.Menu.setAnimationButton(ChangeDifficultyOkButton);
-//        ChangeDifficultyOkButton.setOnMousePressed(event -> {
-//            SettingsDifficultyVBox.setVisible(false);
-//            SettingsMenuVbox.setVisible(true);
-//        });
-
-            // Переключение сложности
-        if (Constants.GameMode.Difficulty.indexDifficulty == 0){
-
-        }
-        DifficultyEasy.setOnMousePressed(event ->{
-             Constants.GameMode.Difficulty.indexDifficulty = 0;
-             System.out.println("Включена легкая сложность");
-        });
-        DifficultyNormal.setOnMousePressed(event ->{
-            Constants.GameMode.Difficulty.indexDifficulty = 1;
-            System.out.println("Включена нормальная сложность");
-        });
-        DifficultyHard.setOnMousePressed(event ->{
-            Constants.GameMode.Difficulty.indexDifficulty = 2;
-            System.out.println("Включена сложная сложность");
-        });
-        DifficultyImpossible.setOnMousePressed(event ->{
-            Constants.GameMode.Difficulty.indexDifficulty = 3;
-            System.out.println("Включена невероятная сложность");
-        });
-
-        // Кнопка выбора режима игры
-        Constants.Menu.setAnimationButton(MenuSettingsMode); // Настройка анимации
-
-
-        // Кнопка Смены Языка
+            //// НАСТРОЙКИ
+        /// Кнопка Смены Языка
         Constants.Menu.setAnimationButton(MenuSettingsLangs); // Настройка анимации
         MenuSettingsLangs.setOnMousePressed(event ->{
-            SettingsLangsVBox.setVisible(true);
-            SettingsDifficultyVBox.setVisible(false);
+            // настройка подменюшек
+            setLanguage(LangsId0, LangsId1, Localization.IndexLangs);
+            // Начальная позиция
             SettingsLangsVBox.setLayoutX(Constants.Menu.Menu_LayoutX+Constants.Menu.Menu_Pref_Width + 5);
             SettingsLangsVBox.setLayoutY(Constants.Menu.Menu_LayoutY);
-            //langsId[Localization.IndexLangs].setSelected(true);
-//            SettingsMenuVbox.setVisible(false);
+            // отображение подменю
+            SettingsLangsVBox.setVisible(true);
+            // Скрытие подменюшек
+            SettingsDifficultyVBox.setVisible(false);
+            SettingsModePane.setVisible(false);
+        });
+        /// Кнопка выбора сложности игры
+        Constants.Menu.setAnimationButton(MenuSettingsDifficulty); // Настройка анимации
+        MenuSettingsDifficulty.setOnMousePressed(event ->{
+            // настройка подменюшек
+            setDifficulty(DifficultyEasy, DifficultyNormal, DifficultyHard, DifficultyImpossible, Constants.GameMode.Difficulty.indexDifficulty);
+            // Начальная позиция
+            SettingsDifficultyVBox.setLayoutX(Constants.Menu.Menu_LayoutX+Constants.Menu.Menu_Pref_Width + 5);
+            SettingsDifficultyVBox.setLayoutY(Constants.Menu.Menu_LayoutY);
+            // отображение подменю
+            SettingsDifficultyVBox.setVisible(true);
+            // Скрытие подменюшек
+            SettingsLangsVBox.setVisible(false);
+            SettingsModePane.setVisible(false);
+        });
+        /// Кнопка выбора режима игры
+        Constants.Menu.setAnimationButton(MenuSettingsMode); // Настройка анимации
+        MenuSettingsMode.setOnMousePressed(event ->{
+            // настройка подменюшек
+            setMode(ModeIsWallsButton, ModeIsAccelButton);
+            // Начальная позиция
+            SettingsModePane.setLayoutX(Constants.Menu.Menu_LayoutX+Constants.Menu.Menu_Pref_Width + 5);
+            SettingsModePane.setLayoutY(Constants.Menu.Menu_LayoutY);
+            // отображение подменю
+            SettingsModePane.setVisible(true);
+            // Скрытие подменюшек
+            SettingsLangsVBox.setVisible(false);
+            SettingsDifficultyVBox.setVisible(false);
         });
 
-        //// ВЫБОР ЯЗЫКА
-        SettingsLangsVBox.setVisible(false);
-        // Кнопка Выхода из меню выбора языка
-//        Constants.Menu.setAnimationButton(ChangeLangsOkButton);
-//
-//        ChangeLangsOkButton.setOnMousePressed(event->{
-//            setTextLanguages();
-//            SettingsDifficultyVBox.setVisible(false);
-//            SettingsLangsVBox.setVisible(false);
-//            SettingsMenuVbox.setVisible(true);
-//        });
+        /// Кнопка выхода из настроек
+        Constants.Menu.setAnimationButton(MenuSettingsExit);
+        MenuSettingsExit.setOnMousePressed(event ->{
+            // отображение подменю
+            MainMenuVBox.setVisible(true);
+            // Скрытие подменюшек
+            SettingsMenuVbox.setVisible(false);
+            SettingsLangsVBox.setVisible(false);
+            SettingsDifficultyVBox.setVisible(false);
+            SettingsModePane.setVisible(false);
+        });
 
 
 
-        //
-        if (Localization.IndexLangs == 0) {
 
-        }
+            //// ВЫБОР ЯЗЫКА
         LangsId0.setOnMousePressed(event ->{      /// 0 - РУС
             Localization.sethLanguage(0);
+            setLanguage(LangsId0, LangsId1, Localization.IndexLangs);
             setTextLanguages();
         });
         LangsId1.setOnMousePressed(event ->{      /// 1 - Eng
             Localization.sethLanguage(1);
+            setLanguage(LangsId0, LangsId1, Localization.IndexLangs);
             setTextLanguages();
+        });
+
+
+
+            //// ВЫБОР СЛОЖНОСТИ
+        // Переключение сложности
+        DifficultyEasy.setOnMousePressed(event ->{
+             Constants.GameMode.Difficulty.indexDifficulty = 0;
+             setDifficulty(DifficultyEasy, DifficultyNormal, DifficultyHard, DifficultyImpossible, Constants.GameMode.Difficulty.indexDifficulty);
+        });
+        DifficultyNormal.setOnMousePressed(event ->{
+            Constants.GameMode.Difficulty.indexDifficulty = 1;
+            setDifficulty(DifficultyEasy, DifficultyNormal, DifficultyHard, DifficultyImpossible, Constants.GameMode.Difficulty.indexDifficulty);
+        });
+        DifficultyHard.setOnMousePressed(event ->{
+            Constants.GameMode.Difficulty.indexDifficulty = 2;
+            setDifficulty(DifficultyEasy, DifficultyNormal, DifficultyHard, DifficultyImpossible, Constants.GameMode.Difficulty.indexDifficulty);
+        });
+        DifficultyImpossible.setOnMousePressed(event ->{
+            Constants.GameMode.Difficulty.indexDifficulty = 3;
+            setDifficulty(DifficultyEasy, DifficultyNormal, DifficultyHard, DifficultyImpossible, Constants.GameMode.Difficulty.indexDifficulty);
+        });
+
+
+            //// РЕЖИМЫ ИГРЫ
+        // переключение режима
+        ModeIsWallsButton.setOnAction(event ->{
+            Constants.GameMode.isWalls = ModeIsWallsButton.isSelected();
+            setMode(ModeIsWallsButton, ModeIsAccelButton);
+        });
+        ModeIsAccelButton.setOnAction(event ->{
+            Constants.GameMode.changeSpeed = ModeIsAccelButton.isSelected();
+            setMode(ModeIsWallsButton, ModeIsAccelButton);
         });
     }
 
@@ -244,21 +264,61 @@ public class Controller {
         DifficultyNormal.setText(Localization.Menu.Settings.Difficulty.Normal[Localization.IndexLangs]);
         DifficultyHard.setText(Localization.Menu.Settings.Difficulty.Hard[Localization.IndexLangs]);
         DifficultyImpossible.setText(Localization.Menu.Settings.Difficulty.Impossible[Localization.IndexLangs]);
-//        ChangeDifficultyOkButton.setText(Localization.Menu.Settings.Difficulty.Exit[Localization.IndexLangs]);
+
 
         MenuSettingsMode.setText(Localization.Menu.Settings.Mode.mode[Localization.IndexLangs]);
 
         MenuSettingsExit.setText(Localization.Menu.Settings.Close[Localization.IndexLangs]);
-
-
-
-//        ChangeLangsOkButton.setText(Localization.Menu.Settings.language.languagesExit[Localization.IndexLangs]);
     }
 
-    public void setDifficulty() {
-
+    public void setLanguage(ToggleButton rus, ToggleButton eng, int b){
+        rus.setStyle(Constants.GameMode.styleOff);
+        rus.setTextFill(Constants.GameMode.fillOff);
+        eng.setStyle(Constants.GameMode.styleOff);
+        eng.setTextFill(Constants.GameMode.fillOff);
+        switch (b){
+            case 0:
+                rus.setStyle(Constants.GameMode.styleOn);
+                rus.setTextFill(Constants.GameMode.fillOn);
+                break;
+            case 1:
+                eng.setStyle(Constants.GameMode.styleOn);
+                eng.setTextFill(Constants.GameMode.fillOn);
+                break;
+        }
     }
-    public void setMode() {
 
+    public void setDifficulty(ToggleButton tE, ToggleButton tN, ToggleButton tH, ToggleButton tI, int b) {
+        tE.setStyle(Constants.GameMode.styleOff);
+        tE.setTextFill(Constants.GameMode.fillOff);
+        tN.setStyle(Constants.GameMode.styleOff);
+        tN.setTextFill(Constants.GameMode.fillOff);
+        tH.setStyle(Constants.GameMode.styleOff);
+        tH.setTextFill(Constants.GameMode.fillOff);
+        tI.setStyle(Constants.GameMode.styleOff);
+        tI.setTextFill(Constants.GameMode.fillOff);
+        switch(b){
+            case 0:
+                tE.setStyle(Constants.GameMode.styleOn);
+                tE.setTextFill(Constants.GameMode.fillOn);
+                break;
+            case 1:
+                tN.setStyle(Constants.GameMode.styleOn);
+                tN.setTextFill(Constants.GameMode.fillOn);
+                break;
+            case 2:
+                tH.setStyle(Constants.GameMode.styleOn);
+                tH.setTextFill(Constants.GameMode.fillOn);
+                break;
+            case 3:
+                tI.setStyle(Constants.GameMode.styleOn);
+                tI.setTextFill(Constants.GameMode.fillOn);
+                break;
+        }
+    }
+
+    public void setMode(CheckBox chW, CheckBox chA) {
+        chW.setSelected(Constants.GameMode.isWalls);
+        chA.setSelected(Constants.GameMode.changeSpeed);
     }
 }

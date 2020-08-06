@@ -24,7 +24,65 @@ public class SnakeGame {
     // Анимация
     protected static long lasttick = 40;
     protected static boolean endGameColor = false;
+    protected static int beginTimerValue;
 
+
+        //// ГЛАВНЫЙ ТАЙМЕР ИГРЫ
+    protected static AnimationTimer asd = new AnimationTimer() {
+        long lasttick = 0;
+
+
+        public void handle(long now) {
+            if (lasttick == 0) {
+                lasttick = now;
+                tick(GameGraphCont);
+                return;
+            }
+            if (now - lasttick > 1000000000 / speed) {
+                lasttick = now;
+                tick(GameGraphCont);
+            }
+        }
+    };
+
+        //// ТАЙМЕР НАЧАЛА
+    protected static AnimationTimer startTimer = new AnimationTimer() {
+        private long lastUpdate = 0;
+        @Override
+        public void handle(long l) {
+            if (l - lastUpdate >= 1_000_000_000) {
+                BeginGameScene(GameGraphCont);
+                lastUpdate = l;
+            }
+        }
+    };
+
+    protected static void BeginGameScene(GraphicsContext gc){
+        if (beginTimerValue > 0){
+            // fill
+            // background
+            gc.setFill(Color.LIGHTGRAY);
+            gc.fillRect(0, 0, Constants.Field.FIELD_WIDTH, Constants.Field.FIELD_HEIGHT);
+            gc.setFill(Color.BLACK);
+            gc.fillRect(0, Constants.Field.START_HEIGHT, Constants.Field.FIELD_WIDTH, Constants.Field.FIELD_HEIGHT);
+
+            // score
+            gc.setFill(Color.CHOCOLATE);
+            gc.setFont(new Font("", 30));
+            gc.fillText(Localization.Game.Score[Localization.IndexLangs]+ ": " + score, Constants.Field.START_WIDTH+10, 30);
+
+            // eat
+            gc.setFill(Color.PURPLE);
+            gc.fillOval(Constants.Field.foodX * Constants.Field.width, Constants.Field.foodY * Constants.Field.height + Constants.Field.START_HEIGHT, Constants.Field.width, Constants.Field.height);
+            gc.setFill(Constants.BeginGameTimer.Text.colorT);
+            gc.setFont(new Font("", Constants.BeginGameTimer.Text.size));
+            gc.fillText(String.valueOf(beginTimerValue), Constants.BeginGameTimer.Text.LayoutX, Constants.BeginGameTimer.Text.LayoutY);
+            beginTimerValue--;
+        }else{
+            startTimer.stop();
+            asd.start();
+        }
+    }
 
     public static void start(){
 
@@ -34,8 +92,6 @@ public class SnakeGame {
 
         VBox root = new VBox();
         Canvas c = new Canvas(Constants.Field.FIELD_WIDTH, Constants.Field.EndFieldY);
-//        c.setLayoutX(Constants.Field.START_WIDTH);
-//        c.setLayoutY(Constants.Field.START_HEIGHT);
         GraphicsContext gc = c.getGraphicsContext2D();
         GameGraphCont = gc;
         root.getChildren().add(c);
@@ -43,22 +99,10 @@ public class SnakeGame {
         root.setLayoutY(Constants.Field.START_HEIGHT);
 
 
-        AnimationTimer asd = new AnimationTimer() {
-            long lasttick = 0;
+        beginTimerValue = Constants.BeginGameTimer.BEGIN_MAX_VALUE;
+        startTimer.start();
 
-            public void handle(long now) {
-                if (lasttick == 0) {
-                    lasttick = now;
-                    tick(gc);
-                    return;
-                }
-                if (now - lasttick > 1000000000 / speed) {
-                    lasttick = now;
-                    tick(gc);
-                }
-            }
-        };
-        asd.start();
+
         Scene scene1 = new Scene(root, Constants.WIDTH, Constants.HEIGHT);
 
         // Control
@@ -77,16 +121,15 @@ public class SnakeGame {
             }
             if (key.getCode() == KeyCode.ENTER){
                 asd.stop();
-                //Scenes.stage.getScene().setRoot(Scenes.rootMenu);
             }
             if (key.getCode() == KeyCode.ESCAPE){
                 asd.start();
             }
         });
         // Add start snake parts
-        Constants.Field.snake.add(new Constants.Corner(Constants.Field.corner_size /2, Constants.Field.corner_size /2 + Constants.Field.START_HEIGHT));
-        Constants.Field.snake.add(new Constants.Corner(Constants.Field.corner_size / 2, Constants.Field.corner_size /2 + Constants.Field.START_HEIGHT));
-        Constants.Field.snake.add(new Constants.Corner(Constants.Field.corner_size / 2, Constants.Field.corner_size /2 + Constants.Field.START_HEIGHT));
+        Constants.Field.snake.add(new Constants.Corner(Constants.Field.corner_size /2, Constants.Field.corner_size /2));
+        Constants.Field.snake.add(new Constants.Corner(Constants.Field.corner_size / 2 - 1, Constants.Field.corner_size /2));
+        Constants.Field.snake.add(new Constants.Corner(Constants.Field.corner_size / 2 - 2, Constants.Field.corner_size /2));
 
         // Create scene
         Scenes.stage.setScene(scene1);
@@ -161,55 +204,41 @@ public class SnakeGame {
 
 
 
-        //// Режим со стенами           ///  НИХУЯ НЕ РАБОТАЕТ
-        
-        if (Constants.GameMode.isWalls) {
-            // Передвижение головы змеи
 
-                        /// Не работает             Й!!!!!!!!!!!!!!!!!!!!!   НАЙТИ ОШИБКУ
-            switch (Constants.Field.direction) {
-                case up:
-                    Constants.Field.snake.get(0).y--;
-                    if (Constants.Field.snake.get(0).y < 0){
-                        Constants.Field.gameOver = true;
-                    }
-                    break;
-                case down:
-                    Constants.Field.snake.get(0).y++;
-                    if (Constants.Field.snake.get(0).y > (Constants.Field.corner_size -1)){
-                        Constants.Field.gameOver = true;
-                    }
-                    break;
-                case left:
-                    Constants.Field.snake.get(0).x--;
-                    if (Constants.Field.snake.get(0).x < 0){
-                        Constants.Field.gameOver = true;
-                    }
-                    break;
-                case right:
-                    Constants.Field.snake.get(0).x++;
-                    if (Constants.Field.snake.get(0).x > (Constants.Field.corner_size -1)){
-                        Constants.Field.gameOver = true;
-                    }
-                    break;
+
+        // Передвижение головы змеи
+        switch (Constants.Field.direction) {
+            case up:
+                Constants.Field.snake.get(0).y--;
+                break;
+            case down:
+                Constants.Field.snake.get(0).y++;
+                break;
+            case left:
+                Constants.Field.snake.get(0).x--;
+                break;
+            case right:
+                Constants.Field.snake.get(0).x++;
+                break;
+        }
+
+            //// Режим со стенами
+        if (Constants.GameMode.isWalls) {
+            if (Constants.Field.snake.get(0).y == 0){
+                Constants.Field.gameOver = true;
+            }
+            if (Constants.Field.snake.get(0).y == (Constants.Field.corner_size -1)){
+                Constants.Field.gameOver = true;
+            }
+            if (Constants.Field.snake.get(0).x == 0){
+                Constants.Field.gameOver = true;
+            }
+            if (Constants.Field.snake.get(0).x == (Constants.Field.corner_size -1)){
+                Constants.Field.gameOver = true;
             }
         }
+            //// РЕЖИМ БЕЗ СТЕН
         else{
-            // Передвижение головы змеи
-            switch (Constants.Field.direction) {
-                case up:
-                    Constants.Field.snake.get(0).y--;
-                    break;
-                case down:
-                    Constants.Field.snake.get(0).y++;
-                    break;
-                case left:
-                    Constants.Field.snake.get(0).x--;
-                    break;
-                case right:
-                    Constants.Field.snake.get(0).x++;
-                    break;
-            }
             // check collision
             // Если змея доходит до края, то появляется в другом конце карты
             if (Constants.Field.snake.get(0).y < 0){
@@ -225,11 +254,6 @@ public class SnakeGame {
                 Constants.Field.snake.get(0).x = 0;
             }
         }
-
-
-
-
-
         // eat food
         // Когда голова змеи ест еду, добовляется хвост змеи и вызывается функция отрисовки новой еды
         if (Constants.Field.foodX == Constants.Field.snake.get(0).x && Constants.Field.foodY == Constants.Field.snake.get(0).y){

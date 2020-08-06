@@ -2,10 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
@@ -70,7 +72,7 @@
         </VBox>
         <VBox fx:id="SettingsLangsVBox" alignment="CENTER" layoutX="467.0" layoutY="34.0" prefHeight="15.0" prefWidth="119.0" spacing="16.0">
             <children>
-                <ToggleButton fx:id="LangsId0" ellipsisString="12" lineSpacing="5.0" mnemonicParsing="false" opacity="0.79" prefHeight="38.0" prefWidth="120.0" selected="true" style="-fx-background-color: #afafaf;" text="Русский" textAlignment="JUSTIFY" textFill="WHITE">
+                <ToggleButton fx:id="LangsId0" ellipsisString="12" lineSpacing="5.0" mnemonicParsing="false" opacity="0.79" prefHeight="77.0" prefWidth="119.0" selected="true" style="-fx-background-color: #afafaf;" text="Русский" textAlignment="JUSTIFY" textFill="WHITE">
                     <font>
                         <Font name="GOST Type BU" size="20.0" />
                     </font>
@@ -102,7 +104,7 @@
             <Insets top="4.0" />
          </opaqueInsets>
       </HBox>
-      <VBox fx:id="SettingsDifficultyVBox" alignment="CENTER" layoutX="408.0" layoutY="229.0" prefHeight="153.0" prefWidth="149.0" spacing="16.0">
+      <VBox fx:id="SettingsDifficultyVBox" alignment="CENTER" layoutX="14.0" layoutY="26.0" prefHeight="153.0" prefWidth="149.0" spacing="16.0">
          <children>
             <ToggleButton fx:id="DifficultyEasy" ellipsisString="12" lineSpacing="5.0" mnemonicParsing="false" opacity="0.79" prefHeight="38.0" prefWidth="178.0" selected="true" style="-fx-background-color: #afafaf;" text="Легкий" textAlignment="JUSTIFY" textFill="WHITE">
                <font>
@@ -129,5 +131,49 @@
             </ToggleButton>
          </children>
       </VBox>
+      <Pane fx:id="SettingsModePane" layoutX="386.0" layoutY="233.0" prefHeight="94.0" prefWidth="153.0">
+         <children>
+            <Rectangle arcHeight="10.0" arcWidth="10.0" height="40.0" opacity="0.79" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="149.0">
+               <fill>
+                  <LinearGradient endX="0.7999999999999999" endY="0.7857142857142857" startX="0.6476190476190475" startY="0.8238095238095238">
+                     <stops>
+                        <Stop color="#afafaf" />
+                        <Stop color="#e7c23e" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="9.0" layoutY="26.0" opacity="0.79" strokeType="OUTSIDE" strokeWidth="0.0" text="Стены" wrappingWidth="102.13677978515625">
+               <font>
+                  <Font name="GOST Type BU" size="20.0" />
+               </font>
+            </Text>
+            <CheckBox fx:id="ModeIsWallsButton" focusTraversable="false" layoutX="115.0" layoutY="3.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="22.0">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </CheckBox>
+            <Rectangle arcHeight="10.0" arcWidth="10.0" height="40.0" layoutY="53.0" opacity="0.79" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="149.0">
+               <fill>
+                  <LinearGradient endX="0.7999999999999999" endY="0.7857142857142857" startX="0.6476190476190475" startY="0.8238095238095238">
+                     <stops>
+                        <Stop color="#afafaf" />
+                        <Stop color="#e8c33e" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="9.0" layoutY="78.0" opacity="0.79" strokeType="OUTSIDE" strokeWidth="0.0" text="Ускорение" wrappingWidth="102.13677978515625">
+               <font>
+                  <Font name="GOST Type BU" size="20.0" />
+               </font>
+            </Text>
+            <CheckBox fx:id="ModeIsAccelButton" focusTraversable="false" layoutX="115.0" layoutY="55.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="22.0">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

@@ -2,10 +2,11 @@ package sample;
 
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+
 
 public class Constants {
 
@@ -52,18 +53,41 @@ public class Constants {
             public static int[] speed = {easySpeed, middleSpeed, highSpeed, impossibleSpeed}; // Массив уровней / скоростей
 
             public static int indexDifficulty = 1; // Уровень средний по-умолчанию
+
         }
 
-        // Изменени скорости после каждой съеденной еды
+            // #e7c23e  золотой цвет
+            // Изменени скорости после каждой съеденной еды
+
             // По-умолчанию есть
         public static boolean changeSpeed = true;
 
         // Наличие стен.   или телепортов по краям карты
             // По-умолчанию стен нет
-        public static boolean isWalls = true;
+        public static boolean isWalls = false;
+
+        public static String styleOn = "-fx-background-color: #e7c23e;";
+        public static Color fillOn = Color.BLACK;
+        public static String styleOff = "-fx-background-color: #afafaf;";
+        public static Color fillOff = Color.WHITE;
     }
 
 
+
+        //// ПАРАМЕТРЫ ТАЙМЕРА ПЕРЕД НАЧАЛОМ ИГРЫ
+    public static class BeginGameTimer{
+        public static final int BEGIN_MAX_VALUE = 3;
+
+        public static class Text{
+            public static double size = 100;     // размер
+            public static String font = "";
+            public static Color colorT = Color.RED;
+            public static int LayoutX = 175;
+            public static int LayoutY = 250;
+        }
+    }
+
+        ////   ИГРОВОЕ ПОЛЕ
     public static class Field {
 
         // Характеристики поля
