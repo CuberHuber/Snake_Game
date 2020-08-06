@@ -181,6 +181,7 @@ public class Controller {
             SettingsDifficultyVBox.setVisible(false);
         });
 
+
         /// Кнопка выхода из настроек
         Constants.Menu.setAnimationButton(MenuSettingsExit);
         MenuSettingsExit.setOnMousePressed(event ->{
