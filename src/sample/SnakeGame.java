@@ -120,7 +120,6 @@ public class SnakeGame {
         newfood(); // Функция выбора положения еды на поле
 
 
-//        GameMenu.pauseMenu.setVisible(false);
 
 
         beginTimerValue = Constants.BeginGameTimer.BEGIN_MAX_VALUE;
