@@ -11,7 +11,7 @@ import java.util.Random;
 public class Constants {
 
     // Версия игры
-    public static final String PROGRAM_VERSION = "0.5.0 beta";    //         !!!  После каждого значительного именения, повышать версию
+    public static final String PROGRAM_VERSION = "0.8.3 beta";    //         !!!  После каждого значительного именения, повышать версию
 
 
 
@@ -57,9 +57,8 @@ public class Constants {
         }
 
             // #e7c23e  золотой цвет
-            // Изменени скорости после каждой съеденной еды
 
-            // По-умолчанию есть
+            // Изменени скорости после каждой съеденной еды
         public static boolean changeSpeed = true;
 
         // Наличие стен.   или телепортов по краям карты

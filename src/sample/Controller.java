@@ -120,6 +120,7 @@ public class Controller {
         StartGameButton.setText(Localization.Menu.Main.Start[Localization.IndexLangs]);
         Constants.Menu.setAnimationButton(StartGameButton);
         StartGameButton.setOnMousePressed(event->{
+
             SnakeGame.start();
         });
         // Кнопка настроек

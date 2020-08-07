@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -31,13 +32,28 @@ public class SnakeGame {
     public static GraphicsContext GameGraphCont;
     private static int speed;
     private static int score;
+    public static Scene gameScene;
 
     // Анимация
-    protected static long lasttick = 40;
+    protected static long lasttick;
     protected static boolean endGameColor = false;
     protected static int beginTimerValue;
 
 
+    public static void setGameScene(){
+        Pane root = new Pane();
+        Canvas c = new Canvas(Constants.Field.FIELD_WIDTH, Constants.Field.EndFieldY);
+        c.setLayoutX(Constants.Field.START_WIDTH);
+        c.setLayoutY(Constants.Field.START_HEIGHT);
+        GraphicsContext gc = c.getGraphicsContext2D();
+        GameGraphCont = gc;
+        root.getChildren().add(c);
+
+        root.getChildren().add(GameMenu.pauseMenu);
+
+        Scene scene1 = new Scene(root, Constants.WIDTH, Constants.HEIGHT);
+        gameScene = scene1;
+    }
         //// ГЛАВНЫЙ ТАЙМЕР ИГРЫ
     protected static AnimationTimer asd = new AnimationTimer() {
         long lasttick = 0;
@@ -99,25 +115,19 @@ public class SnakeGame {
 
         speed = Constants.GameMode.Difficulty.speed[Constants.GameMode.Difficulty.indexDifficulty];
         score = -1;
+        lasttick = 40;
+        Constants.Field.gameOver = false;
         newfood(); // Функция выбора положения еды на поле
 
-        VBox root = new VBox();
-        Canvas c = new Canvas(Constants.Field.FIELD_WIDTH, Constants.Field.EndFieldY);
-        GraphicsContext gc = c.getGraphicsContext2D();
-        GameGraphCont = gc;
-        root.getChildren().add(c);
-        root.setLayoutX(Constants.Field.START_WIDTH);
-        root.setLayoutY(Constants.Field.START_HEIGHT);
+
+//        GameMenu.pauseMenu.setVisible(false);
 
 
         beginTimerValue = Constants.BeginGameTimer.BEGIN_MAX_VALUE;
         startTimer.start();
 
-
-        Scene scene1 = new Scene(root, Constants.WIDTH, Constants.HEIGHT);
-
         // Control
-        scene1.addEventFilter(KeyEvent.KEY_PRESSED, key ->{
+        gameScene.addEventFilter(KeyEvent.KEY_PRESSED, key ->{
             if (key.getCode() == KeyCode.UP && Constants.Field.direction != Constants.Dir.down){
                 Constants.Field.direction = Constants.Dir.up;
             }
@@ -132,11 +142,12 @@ public class SnakeGame {
             }
             if (key.getCode() == KeyCode.ENTER){
                 asd.stop();
-                Scenes.stage.setScene(Scenes.sceneMenu);
-                //GameMenu.setScene();
+                //Scenes.stage.setScene(Scenes.sceneMenu);
+                GameMenu.pauseMenu.setVisible(true);
                 //Scenes.stage.getScene().setRoot(GameMenu.pauseMenu);
             }
             if (key.getCode() == KeyCode.ESCAPE){
+                GameMenu.pauseMenu.setVisible(false);
                 asd.start();
             }
         });
@@ -149,9 +160,10 @@ public class SnakeGame {
         Constants.Field.direction = Constants.Dir.right;
 
         // Create scene
-        Scenes.stage.setScene(scene1);
+        GameMenu.pauseMenu.setVisible(false);
+        Scenes.stage.setScene(gameScene);
         Scenes.stage.setTitle("Змея");
-        Scenes.stage.show();
+        //Scenes.stage.show();
     }
 
     // food
@@ -201,6 +213,7 @@ public class SnakeGame {
         }
         else{
             anim.stop();
+            GameMenu.pauseMenu.setVisible(true);
         }
     }
 
@@ -209,6 +222,7 @@ public class SnakeGame {
         // Условие конца игры
         if (Constants.Field.gameOver){
             anim.start();
+            asd.stop();
             return;
         }
 

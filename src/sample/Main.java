@@ -34,6 +34,8 @@ public class Main extends Application {
 
         });
         primaryStage.initStyle(StageStyle.TRANSPARENT);   // Убирает внешний вид окна Windows. Без элементов управления           !!  После завершение проекта раскомментить
+        GameMenu.setScene();
+        SnakeGame.setGameScene();
         primaryStage.show();
         System.out.println("Ok");
     }
